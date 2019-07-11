@@ -1,1 +1,1 @@
-web: gunicorn ChitChat.ChitChat.wsgi:application --log-file -
+web: gunicorn ChitChat.wsgi:application --log-file -
