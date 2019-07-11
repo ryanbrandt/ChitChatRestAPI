@@ -9,3 +9,4 @@ ChitChatRestAPI is a REST API back-end for an instant messaging mobile and web a
 1) Django
 2) Django Rest Framework
 3) PostgreSQL
+4) Heroku
