@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 ''' Extended User Model, extends Django's OOB User model with additional attributes as needed '''
 class ExtendedUser(AbstractUser):
-    phone = models.IntegerField(unique=True)
+    phone = models.BigIntegerField(unique=True)
     ''' User phone number, mandatory for password retrieval; distinct '''
     is_public = models.BooleanField(default=True)
     ''' Denotes if User is publc (e.g. searchable) '''
