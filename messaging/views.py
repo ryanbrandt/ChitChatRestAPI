@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from messaging.permissions import UserReadWrite, MessageReadWrite, UserMessageRead, GroupReadWrite, UserGroupWrite
 import time
 import yagmail
+import os
 
 ''' @override: overrides DRF ObtainAuthToken method to return User token and User Id '''
 class CustomObtainAuthToken(ObtainAuthToken):
@@ -792,7 +793,7 @@ class PollingList(viewsets.GenericViewSet):
         :param request: HttpRequest object
         :return: null
         '''
-        for i in range(30):
+        for i in range(15):
             if Notification.objects.filter(user=request.user):
                 return JsonResponse({'status': True}, status=200)
             time.sleep(1)
@@ -811,8 +812,8 @@ class HelpUtil(APIView):
         '''
         data = JSONParser().parse(request)
         try:
-            yag = yagmail.SMTP('ryan.brandt1996')
-            yag.send(subject=f"ChitChat Support: {data['subject']} ---- Return: {data['user']}", contents=data['contents'])
+            yag = yagmail.SMTP(os.environ['EMAIL_ADDRESS'], os.environ['EMAIL_CREDENTIALS'])
+            yag.send(subject=f"ChitChat Support: {data['user']} : {data['subject']} ", contents=data['contents'])
             return HttpResponse(status=201)
         except Exception as e:
             print(e)
